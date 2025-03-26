@@ -7,7 +7,8 @@ class Bank {
 
     // Add methods here:
     createAccount(name, initialDeposit) {
-        this.accounts.push(new Account);
+        const newAccount = new Account(name, initialDeposit);
+        this.accounts.push(newAccount);
         return newAccount;
     }
 
@@ -26,7 +27,7 @@ class Account {
     // example data to be stored in transactionHistory { transactionType: 'Deposit', amount: 500 }
 deposit(amount) {
     this.balance += amount;
-    this.transactionHistory.push({ transactionType: 'Withdrawal', amount: amount });
+    this.transactionHistory.push({ transactionType: 'Deposit', amount: amount });
 }
     // Example: withdraw(amount)
     // example data to be stored in transactionHistory { transactionType: 'Withdrawal', amount: 200 }
@@ -44,13 +45,14 @@ withdraw(amount) {
     // for account recieving { transactionType: 'Received', amount: 300, from: senderName }
     transfer(amount, recipientAccount) {
         if (amount > this.balance) {
-            console.log(`Insufficient funds for transfer of ${amount} from ${this.name}'s account.`);
+            console.log(`Insufficient funds for transfer of ${amount} from ${this.name} account.`);
         } else {
             this.balance -= amount;
-            this.transactionHistory.push({ transactionType: 'Transfer', amount: amount, to: recipientName });
+            this.transactionHistory.push({ transactionType: 'Transfer', amount: amount, to: recipientAccount.name });
 
             recipientAccount.balance += amount;
-            recipientAccount.transactionHistory.push({ transactionType: 'Received', amount: amount, from: senderName });
+            recipientAccount.transactionHistory.push({ transactionType: 'Received', amount: amount, from: this.name });
+
         }
        
     }
